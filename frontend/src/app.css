@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-springbok: #007a5e;
+	--color-springbok-bright: #009a76;
+	--color-sa-yellow: #ffc72c;
+	--color-dark-bg: #0f1210;
+	--color-dark-surface: #1b201d;
+	--font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+	@apply antialiased;
+}
+
+body {
+	@apply dark:bg-dark-bg bg-white text-slate-900 dark:text-white;
+	overscroll-behavior-y: contain;
+}
+
+button {
+	min-height: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Keyboard accessibility without changing the normal visual style. */
+*:focus-visible {
+	@apply outline-springbok outline-2 outline-offset-2;
+}

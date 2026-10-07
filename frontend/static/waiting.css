@@ -1,0 +1,189 @@
+:root {
+	color-scheme: light;
+	font-family:
+		Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
+	color: #163b32;
+	background: #f3faf6;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	background:
+		radial-gradient(ellipse at top, #e0f2e9 0, transparent 58%),
+		#f3faf6;
+}
+
+button,
+a {
+	font: inherit;
+}
+
+.waiting-page {
+	width: min(100% - 32px, 480px);
+	margin: 0 auto;
+	padding: 32px 0 max(28px, env(safe-area-inset-bottom));
+}
+
+.page-header {
+	margin-bottom: 24px;
+	text-align: center;
+}
+
+.eyebrow {
+	margin: 0 0 10px;
+	color: #007a5e;
+	font-size: 0.75rem;
+	font-weight: 900;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.intro {
+	margin: 12px 0 0;
+	color: #536b63;
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+
+.snake-panel {
+	padding: 16px;
+	border: 1px solid #c8e3d4;
+	border-radius: 24px;
+	background: #fff;
+	box-shadow: 0 16px 40px rgb(0 82 59 / 10%);
+}
+
+.game-info {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	color: #007a5e;
+	font-size: 0.85rem;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+#snake-canvas {
+	display: block;
+	width: min(100%, 400px);
+	height: auto;
+	margin: 0 auto;
+	border: 2px solid #b6d9c7;
+	border-radius: 16px;
+	background: #eaf6ee;
+	touch-action: none;
+}
+
+.controls {
+	display: grid;
+	grid-template-areas:
+		"left up right"
+		"left down right";
+	grid-template-columns: 1fr 64px 1fr;
+	grid-template-rows: repeat(2, 58px);
+	width: min(100%, 280px);
+	margin: 14px auto 0;
+}
+
+.controls button {
+	min-height: 58px;
+	border: 0;
+	background: #007a5e;
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: 900;
+	touch-action: manipulation;
+}
+
+.controls .up {
+	grid-area: up;
+	border-radius: 14px 14px 0 0;
+}
+
+.controls .left {
+	grid-area: left;
+	border-radius: 14px 0 0 14px;
+}
+
+.controls .down {
+	grid-area: down;
+	border-radius: 0 0 14px 14px;
+}
+
+.controls .right {
+	grid-area: right;
+	border-radius: 0 14px 14px 0;
+}
+
+.controls button:active {
+	background: #005e49;
+	transform: scale(0.97);
+}
+
+.help-text {
+	margin: 12px 0 0;
+	color: #647970;
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+.server-status {
+	display: grid;
+	justify-items: center;
+	gap: 12px;
+	min-height: 112px;
+	padding: 24px 0;
+	text-align: center;
+}
+
+#status-message {
+	margin: 0;
+	color: #35574b;
+	font-size: 0.95rem;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+.action-button {
+	display: inline-flex;
+	min-height: 52px;
+	align-items: center;
+	justify-content: center;
+	padding: 0 24px;
+	border: 0;
+	border-radius: 18px;
+	background: #007a5e;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 900;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.action-button:hover {
+	background: #005e49;
+}
+
+.page-header .action-button {
+	margin-top: 12px;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+@media (min-width: 600px) {
+	.waiting-page {
+		padding-top: 48px;
+	}
+}

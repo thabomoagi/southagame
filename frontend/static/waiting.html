@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Play a quick game of Snake while your game gets ready."
+		/>
+		<title>Getting your game ready</title>
+		<link rel="stylesheet" href="/waiting.css" />
+		<script src="/waiting.js" defer></script>
+	</head>
+	<body>
+		<main class="waiting-page">
+			<header class="page-header">
+				<p class="eyebrow">How Southa Are You?</p>
+				<p id="intro-message" class="intro">Enjoy Snake while your game gets ready.</p>
+				<a id="continue-button" class="action-button" href="/home" hidden>
+					Continue to the game
+				</a>
+			</header>
+
+			<section class="snake-panel" aria-label="Snake while you wait">
+				<div class="game-info">
+					<span>Snake</span>
+					<span>Score: <strong id="score">0</strong></span>
+				</div>
+
+				<canvas
+					id="snake-canvas"
+					width="400"
+					height="400"
+					aria-label="Snake game. Use the arrow keys or direction buttons to move."
+				></canvas>
+
+				<div class="controls" aria-label="Snake direction controls">
+					<button class="up" type="button" data-direction="up" aria-label="Move up">↑</button>
+					<button class="left" type="button" data-direction="left" aria-label="Move left">←</button>
+					<button class="down" type="button" data-direction="down" aria-label="Move down">↓</button>
+					<button class="right" type="button" data-direction="right" aria-label="Move right">→</button>
+				</div>
+
+				<p class="help-text">Use the arrow keys or tap a direction.</p>
+			</section>
+
+			<section class="server-status" aria-live="polite">
+				<p id="status-message">Checking if your game is ready...</p>
+				<button id="retry-button" class="action-button" type="button" hidden>Retry</button>
+			</section>
+		</main>
+	</body>
+</html>
