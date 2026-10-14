@@ -6,5 +6,8 @@
   "assets": {
     "binding": "ASSETS",
     "directory": ".svelte-kit/cloudflare"
+  },
+  "vars": {
+    "PUBLIC_API_BASE_URL": "https://southagame.onrender.com/"
   }
 }
