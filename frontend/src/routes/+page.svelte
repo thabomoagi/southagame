@@ -2,6 +2,6 @@
 	import { browser } from '$app/environment';
 
 	if (browser) {
-		window.location.replace('/waiting.html');
+		window.location.replace('/home');
 	}
 </script>
