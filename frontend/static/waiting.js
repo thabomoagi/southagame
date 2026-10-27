@@ -206,6 +206,106 @@ const questionBank = [
 			{ id: "o3", text: "Freedom Feast", isCorrect: false },
 			{ id: "o4", text: "Unity Sunday", isCorrect: false }
 		]
+	},
+	{
+		category: "Music",
+		question: "Who is the vocalist on “Remember” by Mellow & Sleazy?",
+		options: [
+			{ id: "o1", text: "Tman Xpress", isCorrect: false },
+			{ id: "o2", text: "Toss", isCorrect: false },
+			{ id: "o3", text: "Young Stunna", isCorrect: false },
+			{ id: "o4", text: "Daliwonga", isCorrect: true }
+		]
+	},
+	{
+		category: "Culture",
+		question: "What do South Africans commonly call traffic lights?",
+		options: [
+			{ id: "o1", text: "Robots", isCorrect: true },
+			{ id: "o2", text: "Signals", isCorrect: false },
+			{ id: "o3", text: "Traffic poles", isCorrect: false },
+			{ id: "o4", text: "Stoplights", isCorrect: false }
+		]
+	},
+	{
+		category: "Music",
+		question: "Which artist is known as the “King of Amapiano” by many fans?",
+		options: [
+			{ id: "o1", text: "Kabza De Small", isCorrect: true },
+			{ id: "o2", text: "DJ Maphorisa", isCorrect: false },
+			{ id: "o3", text: "Focalistic", isCorrect: false },
+			{ id: "o4", text: "Uncle Waffles", isCorrect: false }
+		]
+	},
+	{
+		category: "Slang",
+		question: "What is the South African slang word “eish” commonly used to express?",
+		options: [
+			{ id: "o1", text: "Surprise or frustration", isCorrect: true },
+			{ id: "o2", text: "Hunger only", isCorrect: false },
+			{ id: "o3", text: "Goodbye", isCorrect: false },
+			{ id: "o4", text: "Congratulations", isCorrect: false }
+		]
+	},
+	{
+		category: "Culture",
+		question: "Which South African city is nicknamed the “City of Gold”?",
+		options: [
+			{ id: "o1", text: "Johannesburg", isCorrect: true },
+			{ id: "o2", text: "Durban", isCorrect: false },
+			{ id: "o3", text: "Cape Town", isCorrect: false },
+			{ id: "o4", text: "Polokwane", isCorrect: false }
+		]
+	},
+	{
+		category: "Food",
+		question: "What is a “kota” in South African street food?",
+		options: [
+			{ id: "o1", text: "A quarter loaf filled with fillings", isCorrect: true },
+			{ id: "o2", text: "A grilled sausage", isCorrect: false },
+			{ id: "o3", text: "A type of porridge", isCorrect: false },
+			{ id: "o4", text: "A sweet dumpling", isCorrect: false }
+		]
+	},
+	{
+		category: "Music",
+		question: "Which artist released the hit song “Tshwala Bam” with EeQue?",
+		options: [
+			{ id: "o1", text: "TitoM and Yuppe", isCorrect: true },
+			{ id: "o2", text: "Kabza De Small and DJ Maphorisa", isCorrect: false },
+			{ id: "o3", text: "Mellow & Sleazy", isCorrect: false },
+			{ id: "o4", text: "Major League DJz", isCorrect: false }
+		]
+	},
+	{
+		category: "Sport",
+		question: "What is the name of South Africa's national cricket team?",
+		options: [
+			{ id: "o1", text: "Proteas", isCorrect: true },
+			{ id: "o2", text: "Springboks", isCorrect: false },
+			{ id: "o3", text: "Bafana Bafana", isCorrect: false },
+			{ id: "o4", text: "The Warriors", isCorrect: false }
+		]
+	},
+	{
+		category: "Language",
+		question: "Which South African language does the word “lekker” commonly come from?",
+		options: [
+			{ id: "o1", text: "Afrikaans", isCorrect: true },
+			{ id: "o2", text: "isiZulu", isCorrect: false },
+			{ id: "o3", text: "isiXhosa", isCorrect: false },
+			{ id: "o4", text: "Sesotho", isCorrect: false }
+		]
+	},
+	{
+		category: "Culture",
+		question: "What do South Africans commonly call a convenience store attached to a home or in a neighbourhood?",
+		options: [
+			{ id: "o1", text: "Spaza shop", isCorrect: true },
+			{ id: "o2", text: "Bottle store", isCorrect: false },
+			{ id: "o3", text: "Tuck truck", isCorrect: false },
+			{ id: "o4", text: "Market hall", isCorrect: false }
+		]
 	}
 ];
 
