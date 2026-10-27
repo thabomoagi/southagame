@@ -142,8 +142,8 @@
         try {
             const res: any = await api.submitQna(attemptId, answers);
             const params = new URLSearchParams({
-                score: String(res.score ?? 0),
-                total: String(questions.length)
+                score: String(res.correctCount ?? res.score ?? 0),
+                total: String(res.totalQuestions ?? questions.length)
             });
             goto(`/multiple-choice/game-over?${params.toString()}`);
         } catch (err) {
