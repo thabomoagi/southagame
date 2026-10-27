@@ -49,12 +49,12 @@ const questionBank = [
 	},
 	{
 		category: "Music",
-		question: "Which South African singer released the international hit “Water”?",
+		question: "Who featured alongside Master KG on the global hit song “Jerusalema”?",
 		options: [
-			{ id: "o1", text: "Tyla", isCorrect: true },
-			{ id: "o2", text: "Lira", isCorrect: false },
-			{ id: "o3", text: "Zahara", isCorrect: false },
-			{ id: "o4", text: "Nomcebo Zikode", isCorrect: false }
+			{ id: "o1", text: "Nomcebo Zikode", isCorrect: true },
+			{ id: "o2", text: "Zahara", isCorrect: false },
+			{ id: "o3", text: "Lira", isCorrect: false },
+			{ id: "o4", text: "Tyla", isCorrect: false }
 		]
 	},
 	{
@@ -213,9 +213,10 @@ const questionBank = [
 let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
-let timeLeft = 120;
+let timeLeft = 30;
 let timerId = null;
 let locked = false;
+let serverIsReady = false;
 
 // DOM Elements
 const startScreen = document.querySelector('#start-screen');
@@ -234,12 +235,12 @@ const playFullGameBtn = document.querySelector('#play-full-game-btn');
 const centralPlayFullGameBtn = document.querySelector('#central-play-full-game-btn');
 
 function startRound() {
-	// Load questions in exact sequence (Q1 to Q20)
-	currentQuestions = [...questionBank];
+	// Pick 5 random questions from questionBank
+	currentQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 5);
 	currentIndex = 0;
 	score = 0;
 	locked = false;
-	timeLeft = 120;
+	timeLeft = 30;
 
 	startScreen.hidden = true;
 	gameOverScreen.hidden = true;
@@ -341,6 +342,10 @@ function endRound() {
 // Navigation handler for Play Full Game buttons
 function handlePlayFullGame(e) {
 	e.preventDefault();
+	if (!serverIsReady) {
+		alert('Please wait while the game server finishes waking up...');
+		return;
+	}
 	window.location.href = '/home';
 }
 
@@ -356,17 +361,27 @@ async function checkServerHealth() {
 	try {
 		const res = await fetch(HEALTH_URL, { cache: 'no-store' });
 		if (res.status === 200) {
+			serverIsReady = true;
 			statusBarText.textContent = 'Game server is ready!';
 			playFullGameBtn.hidden = false;
 			if (centralPlayFullGameBtn) {
 				centralPlayFullGameBtn.hidden = false;
 			}
+		} else {
+			serverIsReady = false;
+			statusBarText.textContent = 'Preparing your game... (Server waking up)';
+			playFullGameBtn.hidden = true;
+			if (centralPlayFullGameBtn) {
+				centralPlayFullGameBtn.hidden = true;
+			}
 		}
 	} catch {
-		statusBarText.textContent = 'Play full game';
-		// For testing / convenience so the user can always click Play Full Game:
-		// Remove hidden attribute if desired or keep it controlled by health check.
-		// Let's make sure it's accessible or visible when needed, or controlled by server status.
+		serverIsReady = false;
+		statusBarText.textContent = 'Preparing your game... (Server waking up)';
+		playFullGameBtn.hidden = true;
+		if (centralPlayFullGameBtn) {
+			centralPlayFullGameBtn.hidden = true;
+		}
 	}
 }
 
