@@ -10,6 +10,7 @@ from app.services.analytics import (
     get_overview_stats,
     get_question_response_times,
 )
+from app.services.ai_insights import get_or_generate_ai_insights
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 
@@ -17,6 +18,14 @@ router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 @router.get("/overview")
 async def overview(db: AsyncSession = Depends(get_db)):
     return await get_overview_stats(db)
+
+
+@router.get("/ai-insights")
+async def ai_insights(
+    refresh: bool = Query(False, description="Force refresh insights (rate-limited by server TTL)"),
+    db: AsyncSession = Depends(get_db),
+):
+    return await get_or_generate_ai_insights(db, force_refresh=refresh)
 
 
 @router.get("/questions/most-played")

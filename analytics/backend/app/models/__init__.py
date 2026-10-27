@@ -1,3 +1,4 @@
+from app.models.ai_insight import AiInsightCache  # noqa: F401
 from app.models.attempt import Attempt  # noqa: F401
 from app.models.attempt_answer import AttemptAnswer  # noqa: F401
 from app.models.attempt_question import AttemptQuestion  # noqa: F401

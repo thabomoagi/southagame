@@ -37,6 +37,17 @@ export interface ResponseTimeQuestion {
   total_attempts: number;
 }
 
+export interface AIInsights {
+  summary: string;
+  key_findings: string[];
+  difficulty_analysis: string;
+  recommendations: string[];
+  commentary_available: boolean;
+  generated_at?: string;
+  metrics_snapshot?: Record<string, unknown>;
+  error_detail?: string;
+}
+
 async function request<T>(url: string): Promise<T> {
   const response = await fetch(url);
 
@@ -97,4 +108,8 @@ export function fetchSlowest(
   return request<ResponseTimeQuestion[]>(
     `${API_BASE}/questions/slowest?limit=${limit}`,
   );
+}
+
+export function fetchAiInsights(refresh = false): Promise<AIInsights> {
+  return request<AIInsights>(`${API_BASE}/ai-insights?refresh=${refresh}`);
 }

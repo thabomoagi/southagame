@@ -2,7 +2,6 @@
   interface NavItem {
     id: string;
     label: string;
-    available: boolean;
   }
 
   let {
@@ -14,12 +13,9 @@
   } = $props();
 
   const navItems: NavItem[] = [
-    { id: "overview", label: "Overview", available: true },
-    { id: "questions", label: "Questions", available: true },
-    { id: "categories", label: "Categories", available: false },
-    { id: "difficulty", label: "Difficulty", available: false },
-    { id: "trends", label: "Trends", available: false },
-    { id: "ai", label: "AI Insights", available: false },
+    { id: "overview", label: "Overview" },
+    { id: "questions", label: "Questions" },
+    { id: "ai-insights", label: "AI Insights" },
   ];
 </script>
 
@@ -53,32 +49,16 @@
 
       <div class="space-y-1">
         {#each navItems as item}
-          {#if item.available}
-            <button
-              type="button"
-              onclick={() => onSelect(item.id)}
-              class="flex w-full items-center rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition {activeTab ===
-              item.id
-                ? 'bg-emerald-500/10 text-emerald-400'
-                : 'text-zinc-500 hover:bg-zinc-900 hover:text-zinc-300'}"
-            >
-              {item.label}
-            </button>
-          {:else}
-            <button
-              type="button"
-              disabled
-              aria-disabled="true"
-              class="flex w-full cursor-not-allowed items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-zinc-700"
-            >
-              <span>{item.label}</span>
-              <span
-                class="rounded-md border border-zinc-800 px-1.5 py-0.5 text-[8px] uppercase tracking-wider"
-              >
-                Soon
-              </span>
-            </button>
-          {/if}
+          <button
+            type="button"
+            onclick={() => onSelect(item.id)}
+            class="flex w-full items-center rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition {activeTab ===
+            item.id
+              ? 'bg-emerald-500/10 text-emerald-400'
+              : 'text-zinc-500 hover:bg-zinc-900 hover:text-zinc-300'}"
+          >
+            {item.label}
+          </button>
         {/each}
       </div>
     </nav>

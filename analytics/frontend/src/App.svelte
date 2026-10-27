@@ -4,6 +4,7 @@
   import AnalyticsTable from "./components/AnalyticsTable.svelte";
   import Sidebar from "./components/Sidebar.svelte";
   import StatCard from "./components/StatCard.svelte";
+  import AiInsightsView from "./components/AiInsightsView.svelte";
 
   import {
     fetchEasiest,
@@ -13,11 +14,13 @@
     fetchMostPlayed,
     fetchOverview,
     fetchSlowest,
+    fetchAiInsights,
     type AccuracyQuestion,
     type MissedQuestion,
     type MostPlayedQuestion,
     type OverviewStats,
     type ResponseTimeQuestion,
+    type AIInsights,
   } from "./api/analytics";
 
   let activeTab = $state("overview");
@@ -29,6 +32,7 @@
   let mostMissed = $state<MissedQuestion[]>([]);
   let fastest = $state<ResponseTimeQuestion[]>([]);
   let slowest = $state<ResponseTimeQuestion[]>([]);
+  let aiInsights = $state<AIInsights | null>(null);
 
   let loading = $state(true);
   let error = $state("");
@@ -36,6 +40,7 @@
   const pageTitles: Record<string, string> = {
     overview: "Overview",
     questions: "Question Analytics",
+    "ai-insights": "AI Insights",
   };
 
   function selectTab(tab: string) {
@@ -56,6 +61,14 @@
     return `${Math.round(milliseconds)}ms`;
   }
 
+  async function loadAiInsights(refresh = false) {
+    try {
+      aiInsights = await fetchAiInsights(refresh);
+    } catch {
+      // Non-blocking fallback for AI insights
+    }
+  }
+
   async function loadAnalytics() {
     loading = true;
     error = "";
@@ -69,6 +82,7 @@
         mostMissedResult,
         fastestResult,
         slowestResult,
+        aiInsightsResult,
       ] = await Promise.all([
         fetchOverview(),
         fetchMostPlayed(),
@@ -77,6 +91,7 @@
         fetchMostMissed(),
         fetchFastest(),
         fetchSlowest(),
+        fetchAiInsights(),
       ]);
 
       overview = overviewResult;
@@ -86,6 +101,7 @@
       mostMissed = mostMissedResult;
       fastest = fastestResult;
       slowest = slowestResult;
+      aiInsights = aiInsightsResult;
     } catch (err) {
       error =
         err instanceof Error
@@ -312,6 +328,20 @@
                 />
               </div>
             </div>
+          </section>
+        {:else if activeTab === "ai-insights"}
+          <section>
+            <div class="mb-7">
+              <p class="max-w-2xl text-sm leading-6 text-zinc-500">
+                LLM-powered narrative insights analyzing gameplay metrics, player trends, and difficulty distribution.
+              </p>
+            </div>
+
+            <AiInsightsView
+              insights={aiInsights}
+              {loading}
+              onRefresh={() => loadAiInsights(true)}
+            />
           </section>
         {/if}
       </div>

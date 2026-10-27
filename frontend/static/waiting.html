@@ -5,44 +5,131 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="Play a quick game of Candy Match while your game gets ready."
+			content="Play South African MCQ trivia while your game gets ready."
 		/>
-		<title>Getting your game ready</title>
+		<title>Multiple Choice - How Southa Are You?</title>
 		<link rel="icon" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="stylesheet" href="/waiting.css" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: 'media',
+				theme: {
+					extend: {
+						colors: {
+							'sa-yellow': '#fcd34d',
+							'springbok': '#007a5e',
+							'springbok-bright': '#10b981',
+							'dark-bg': '#0f172a',
+							'dark-surface': '#1e293b'
+						}
+					}
+				}
+			}
+		</script>
 		<script src="/waiting.js" defer></script>
 	</head>
-	<body>
-		<main class="waiting-page">
-			<header class="page-header">
-				<p class="eyebrow">How Southa Are You?</p>
-				<p id="intro-message" class="intro">Enjoy Candy Match while your game gets ready.</p>
-				<a id="continue-button" class="action-button" href="/home" hidden>
-					Continue to the game
-				</a>
-			</header>
+	<body class="min-h-dvh bg-white text-slate-900 dark:bg-dark-bg dark:text-white">
+		<!-- Server Status / Play Full Game Header Bar -->
+		<div id="server-status-bar" class="server-bar bg-springbok px-6 py-3 text-white flex items-center justify-between shadow-md">
+			<div class="flex items-center gap-2">
+				<span id="status-text" class="text-sm font-black uppercase tracking-wider">Preparing your game...</span>
+			</div>
+			<button id="play-full-game-btn" type="button" class="rounded-2xl bg-sa-yellow px-5 py-2 text-sm font-black text-slate-900 shadow-lg transition-transform active:scale-[0.98]" hidden>
+				Play Full Game
+			</button>
+		</div>
 
-			<section class="game-panel" aria-label="Candy Match while you wait">
-				<div class="game-info">
-					<span>Candy Match</span>
-					<span>Score: <strong id="score">0</strong></span>
+		<!-- MCQ Game Container -->
+		<main id="app-container" class="flex min-h-[calc(100dvh-56px)] flex-col bg-white dark:bg-dark-bg">
+			<!-- Start Screen -->
+			<div id="start-screen" class="flex flex-1 flex-col justify-between px-6 py-12 text-center">
+				<div class="flex flex-1 flex-col items-center justify-center">
+					<h1 class="text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+						Multiple Choice
+					</h1>
+					<p class="mt-2 text-sm font-black uppercase tracking-widest text-springbok dark:text-springbok-bright">
+						2 Minutes • 20 Questions
+					</p>
+					<div class="mt-10 max-w-sm space-y-5 text-lg font-semibold text-slate-700 dark:text-slate-200">
+						<p>You&apos;ll have 120 seconds to answer 20 questions and test how well you know South Africa.</p>
+						<p>Answer each question as quickly and accurately as possible.</p>
+						<p>You will only get one answer for each question.</p>
+					</div>
 				</div>
+				<div class="flex flex-col gap-4 w-full max-w-sm mx-auto">
+					<button
+						id="central-play-full-game-btn"
+						type="button"
+						class="w-full rounded-3xl bg-springbok px-6 py-5 text-2xl font-black tracking-wider text-white shadow-xl shadow-springbok/35 transition-transform active:scale-[0.98]"
+						hidden
+					>
+						PLAY FULL GAME
+					</button>
+					<button
+						id="start-btn"
+						type="button"
+						class="w-full rounded-3xl bg-sa-yellow px-6 py-5 text-2xl font-black tracking-wider text-slate-900 shadow-xl shadow-sa-yellow/30 transition-transform active:scale-[0.98]"
+					>
+						START GAME
+					</button>
+				</div>
+			</div>
 
-				<canvas
-					id="candy-canvas"
-					width="400"
-					height="400"
-					aria-label="Candy Match game board. Tap two adjacent candies to swap them and match 3 or more."
-				></canvas>
+			<!-- Playing Screen -->
+			<div id="play-screen" class="flex flex-1 flex-col hidden" hidden>
+				<header class="flex flex-col items-center gap-1 px-6 pt-8">
+					<div id="timer-display" class="text-7xl font-black tabular-nums text-springbok dark:text-springbok-bright">
+						120
+					</div>
+					<p id="question-progress" class="text-sm font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
+						Question 1 of 20
+					</p>
+				</header>
 
-				<p class="help-text">Tap two adjacent candies to swap.</p>
-			</section>
+				<section class="flex flex-1 flex-col px-6 py-6 justify-center max-w-lg mx-auto w-full">
+					<h2 id="question-text" class="text-center text-3xl font-black leading-tight text-slate-900 dark:text-white">
+						Question prompt goes here?
+					</h2>
 
-			<section class="server-status" aria-live="polite">
-				<p id="status-message">Checking if your game is ready...</p>
-				<button id="retry-button" class="action-button" type="button" hidden>Retry</button>
-			</section>
+					<div class="my-6 h-1 w-full rounded-full bg-sa-yellow"></div>
+
+					<div id="options-container" class="flex flex-col gap-4">
+						<!-- Options inserted dynamically -->
+					</div>
+				</section>
+			</div>
+
+			<!-- Game Over Screen -->
+			<div id="game-over-screen" class="flex flex-1 flex-col justify-between px-6 py-12 text-center hidden" hidden>
+				<div class="flex flex-1 flex-col items-center justify-center">
+					<h2 class="text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+						Game Over!
+					</h2>
+					<p id="final-score-display" class="mt-6 text-4xl font-black text-springbok dark:text-sa-yellow">
+						0 / 20 Points
+					</p>
+					<p id="feedback-text" class="mt-5 max-w-sm text-lg font-semibold text-slate-600 dark:text-slate-300">
+						Better luck next time, boet!
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 w-full max-w-sm mx-auto">
+					<button
+						id="play-again-btn"
+						type="button"
+						class="w-full rounded-3xl bg-sa-yellow px-6 py-5 text-2xl font-black tracking-wider text-slate-900 shadow-xl shadow-sa-yellow/30 transition-transform active:scale-[0.98]"
+					>
+						PLAY AGAIN
+					</button>
+					<a
+						href="/home"
+						class="w-full rounded-3xl border-2 border-slate-200 bg-white px-6 py-5 text-2xl font-black tracking-wider text-slate-700 transition-transform active:scale-[0.98] dark:border-slate-700 dark:bg-dark-surface dark:text-white text-center"
+					>
+						FINISH
+					</a>
+				</div>
+			</div>
 		</main>
 	</body>
 </html>
