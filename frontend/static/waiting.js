@@ -1,5 +1,9 @@
 // Waiting Room MCQ Game with 20 preloaded South African trivia questions
-const HEALTH_URL = localStorage.getItem('SOUTH_API_HEALTH_URL') || 'http://localhost:8080/api/v1/health';
+const DEFAULT_HEALTH_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+	? 'http://localhost:8080/api/v1/health'
+	: 'https://southagame.onrender.com/api/v1/health';
+
+const HEALTH_URL = localStorage.getItem('SOUTH_API_HEALTH_URL') || DEFAULT_HEALTH_URL;
 const POLL_INTERVAL_MS = 3000;
 
 const questionBank = [
