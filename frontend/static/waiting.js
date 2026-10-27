@@ -233,6 +233,7 @@ const feedbackText = document.querySelector('#feedback-text');
 const statusBarText = document.querySelector('#status-text');
 const playFullGameBtn = document.querySelector('#play-full-game-btn');
 const centralPlayFullGameBtn = document.querySelector('#central-play-full-game-btn');
+const finishBtn = document.querySelector('#finish-btn');
 
 function startRound() {
 	// Pick 5 random questions from questionBank
@@ -354,6 +355,14 @@ if (playFullGameBtn) {
 }
 if (centralPlayFullGameBtn) {
 	centralPlayFullGameBtn.addEventListener('click', handlePlayFullGame);
+}
+if (finishBtn) {
+	finishBtn.addEventListener('click', (e) => {
+		if (!serverIsReady) {
+			e.preventDefault();
+			alert('Please wait while the game server finishes waking up...');
+		}
+	});
 }
 
 // Server Health Check Polling
